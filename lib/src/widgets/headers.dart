@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HeaderCuadrado extends StatelessWidget {
   @override
@@ -288,5 +289,83 @@ class _HeaderWaveGradientPainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     return true;
+  }
+}
+
+class IconHeader extends StatelessWidget {
+
+  final IconData icon;
+  final String titulo;
+  final String subtitulo;
+  final Color color1;
+  final Color color2;
+
+  const IconHeader({@required this.icon, @required this.titulo, @required this.subtitulo, this.color1 = Colors.grey, this.color2 = Colors.blueGrey});
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    final Color colorBlanco = Colors.white.withOpacity(0.7);
+
+    return Stack(
+      children: <Widget>[
+        _IconHeaderBackground(
+          color1: this.color1,
+          color2: this.color2,
+        ),
+        Positioned(
+          top: -50,
+          left: -70,
+          child: FaIcon(icon, size: 250, color: Colors.white.withOpacity(0.2)),
+        ),
+        Column(
+          children: <Widget>[
+            SizedBox(height: 60, width: double.infinity),
+            Text(titulo, style: TextStyle(fontSize: 20, color: colorBlanco)),
+            SizedBox(height: 20),
+            Text(subtitulo, style: TextStyle(fontSize: 25, color: colorBlanco, fontWeight: FontWeight.bold)),
+            SizedBox(height: 20),
+            FaIcon(icon, size: 80, color: Colors.white),
+          ],
+        ),
+        Positioned(
+            right: 0,
+            top: 30,
+            child: RawMaterialButton(
+              onPressed: (){},
+              shape: CircleBorder(),
+              padding: EdgeInsets.all(15),
+              child: FaIcon(FontAwesomeIcons.ellipsisV, color: Colors.white)),
+          )
+      ],
+    );
+  }
+}
+
+class _IconHeaderBackground extends StatelessWidget {
+
+  final Color color1;
+  final Color color2;
+
+  _IconHeaderBackground({@required this.color1, @required this.color2});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 250,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(80)),
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: <Color>[
+            color1,
+            color2
+          ]
+        ),
+      ),
+    );
   }
 }
