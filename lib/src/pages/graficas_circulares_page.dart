@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:disenos/src/widgets/radial_progress.dart';
+import 'package:disenos/src/theme/theme.dart';
 
 class GraficasCircularesPage extends StatefulWidget {
   @override
@@ -29,14 +31,14 @@ class _GraficasCircularesPageState extends State<GraficasCircularesPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               CustomRadialProgress(porcentaje: porcentaje, color: Colors.blue, icon: Icons.verified_user),
-              CustomRadialProgress(porcentaje: porcentaje, color: Colors.red, icon: Icons.restaurant_menu)
+              CustomRadialProgress(porcentaje: porcentaje * 1.2, color: Colors.red, icon: Icons.restaurant_menu)
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              CustomRadialProgress(porcentaje: porcentaje, color: Colors.pink, icon: Icons.directions_walk),
-              CustomRadialProgress(porcentaje: porcentaje, color: Colors.purple, icon: Icons.directions_bus)
+              CustomRadialProgress(porcentaje: porcentaje * 1.4, color: Colors.pink, icon: Icons.directions_walk),
+              CustomRadialProgress(porcentaje: porcentaje * 1.6, color: Colors.purple, icon: Icons.directions_bus)
             ],
           ),
         ],
@@ -57,6 +59,7 @@ class CustomRadialProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
     return Container(
       width: 150,
       height: 150,
@@ -64,7 +67,7 @@ class CustomRadialProgress extends StatelessWidget {
       child: RadialProgress(
         porcentaje: porcentaje, 
         colorPrimario: color,
-        colorSecundario: Colors.grey,
+        colorSecundario: appTheme.textTheme.body1.color,
         grosorPrimario: 10,
         grosorSecundario: 4,
         icon: Icon(icon, color: color, size: 60.0),

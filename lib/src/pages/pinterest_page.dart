@@ -1,3 +1,4 @@
+import 'package:disenos/src/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -26,11 +27,13 @@ class PinterestMenuLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mostrar = Provider.of<_MenuModel>(context).mostrar;
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
     return Positioned(
       bottom: 30,
       child: PinterestMenu(
         mostrar: mostrar,
-        // backgroundColor: Colors.red,
+        backgroundColor: appTheme.scaffoldBackgroundColor,
+        activeColor: appTheme.accentColor,
         // inactiveColor: Colors.blue,
         items: [
           PinterestButton(icon: Icons.pie_chart, onPressed: (){ print('Icon pie_chart');}),
