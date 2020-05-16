@@ -23,7 +23,7 @@ class _BotonNewList extends StatelessWidget {
     final appTheme = Provider.of<ThemeChanger>(context);
 
     return ButtonTheme(
-      minWidth: size.width * 0.9,
+      minWidth: size.width * 0.5,
       height: 100,
       child: RaisedButton(
         onPressed: (){},
@@ -68,6 +68,7 @@ class _MainScroll extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isLarge = MediaQuery.of(context).size.height > 500;
     final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
     return CustomScrollView(
       slivers: <Widget>[
@@ -77,20 +78,23 @@ class _MainScroll extends StatelessWidget {
         //   backgroundColor: Colors.red,
         //   title: Text('Hola mundo'),
         // ),
-        SliverPersistentHeader(
-          floating: true,
-          delegate: _SliverCustomHeaderDelegate(
-            minHeight: 170,
-            maxHeight: 200,
-            child: Container(
-              alignment: Alignment.centerLeft,
-              child: _Titulo(),
-              color: appTheme.scaffoldBackgroundColor
-            )
+        if(isLarge)
+          SliverPersistentHeader(
+            floating: true,
+            delegate: _SliverCustomHeaderDelegate(
+              minHeight: 170,
+              maxHeight: 200,
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: _Titulo(),
+                color: appTheme.scaffoldBackgroundColor
+              )
+            ),
           ),
-        ),
         SliverList(
           delegate: SliverChildListDelegate([
+            if(!isLarge)
+              SizedBox(height: 30),
             ...items,
             SizedBox(height: 100)
           ]),
